@@ -32,6 +32,24 @@ const checkStock = () => {
     });
 };
 
+const boilWater = () => {
+    console.log("Sedang memanaskan air...")
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Air panas sudah siap!");
+        }, 5000);
+    })
+}
+
+const grindCoffeBeans = () => {
+    console.log("Sedang menggiling biji kopi");
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("Bubuk kopi sudah siap!");
+        }, 3000);
+    })
+}
+
 const brewCoffee = () => {
     console.log("Making your coffee...");
     return new Promise((resolve, reject) => {
@@ -48,6 +66,11 @@ function makeEspresso(){
         .then((value) => {
             console.log(value);
             return checkStock();
+        })
+        .then((value) => {
+            console.log(value);
+            const promises = [boilWater(), grindCoffeBeans()];
+            return Promise.all(promises);
         })
         .then((value) => {
             console.log(value);
